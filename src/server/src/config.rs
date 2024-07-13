@@ -127,6 +127,30 @@ impl Default for QueryDedupConfig {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(default)]
+pub struct CompactionServerConfig {
+    /// The address to listen
+    pub bind_addr: String,
+    pub grpc_port: u16,
+
+    pub timeout: Option<ReadableDuration>,
+    pub grpc_server_cq_count: usize,
+    /// The minimum length of the response body to compress.
+    pub resp_compress_min_length: ReadableSize,
+
+    /// Auth config
+    pub auth: auth::Config,
+
+    // TODO
+}
+
+impl Default for CompactionServerConfig {
+    fn default() -> Self {
+        unimplemented!()
+    }
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(default)]
 pub struct ServerConfig {
     /// The address to listen.
     pub bind_addr: String,
@@ -153,7 +177,7 @@ pub struct ServerConfig {
 
     pub default_schema_config: SchemaConfig,
 
-    // Config of route
+    /// Config of route
     pub route_cache: router::RouteCacheConfig,
 
     /// Record hotspot query or write requests
@@ -161,6 +185,9 @@ pub struct ServerConfig {
 
     /// Config of remote engine client
     pub remote_client: remote_engine_client::Config,
+    
+    /// Config of compaction client
+    // TODO: Add compaction_client config here.
 
     /// Config of dedup query
     pub query_dedup: QueryDedupConfig,

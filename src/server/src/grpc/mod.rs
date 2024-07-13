@@ -26,6 +26,7 @@ use std::{
 
 use cluster::ClusterRef;
 use common_types::column_schema;
+use compaction_service::CompactionServiceImpl;
 use futures::FutureExt;
 use generic_error::GenericError;
 use horaedbproto::{
@@ -64,6 +65,7 @@ mod meta_event_service;
 mod metrics;
 mod remote_engine_service;
 mod storage_service;
+mod compaction_service;
 
 #[derive(Debug, Snafu)]
 pub enum Error {
@@ -158,6 +160,25 @@ pub enum Error {
 }
 
 define_result!(Error);
+
+/// Compaction rpc services manages all grpc services of the compaction server.
+pub struct CompactionRpcServices {
+    serve_addr: SocketAddr,
+    rpc_server: InterceptedService<StorageServiceServer<StorageServiceImpl>, AuthWithFile>,
+    compaction_server: CompactionServiceServer<CompactionServiceImpl>,
+    runtime: Arc<Runtime>,
+    stop_tx: Option<Sender<()>>,
+}
+
+impl CompactionRpcServices {
+    pub async fn start(&mut self) -> Result<()> {
+        unimplemented!()
+    }
+
+    pub async fn shutdown(&mut self) {
+        unimplemented!()
+    }
+}
 
 /// Rpc services manages all grpc services of the server.
 pub struct RpcServices {

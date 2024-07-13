@@ -47,14 +47,12 @@ use table_engine::{
 use wal::manager::OpenedWals;
 
 use crate::{
-    config::ServerConfig,
-    grpc::{self, RpcServices},
+    config::{CompactionServerConfig, ServerConfig},
+    grpc::{self, CompactionRpcServices, RpcServices},
     http::{self, HttpConfig, Service},
     local_tables::{self, LocalTablesRecoverer},
-    mysql,
-    mysql::error::Error as MysqlError,
-    postgresql,
-    postgresql::error::Error as PostgresqlError,
+    mysql::{self, error::Error as MysqlError},
+    postgresql::{self, error::Error as PostgresqlError},
 };
 
 #[derive(Debug, Snafu)]
@@ -143,6 +141,22 @@ pub enum Error {
 
 define_result!(Error);
 
+pub struct CompactionServer {
+    http_service: Service,
+    rpc_services: CompactionRpcServices,
+    // TODO
+}
+
+impl CompactionServer {
+    async fn stop(self) {
+        unimplemented!()     
+    } 
+
+    async fn start(&mut self) -> Result<()> {
+        unimplemented!() 
+    }
+}
+
 // TODO(yingwen): Consider a config manager
 /// Server
 pub struct Server {
@@ -228,6 +242,24 @@ impl Server {
                 .await
                 .expect("Fail to create default schema");
         }
+    }
+}
+
+#[must_use]
+pub struct CompactionServerBuilder {
+    server_config: CompactionServerConfig,
+
+
+    // TODO
+}
+
+impl CompactionServerBuilder {
+    pub fn new(config: CompactionServerConfig) -> Self {
+        unimplemented!()
+    }
+
+    pub fn build(self) -> Result<CompactionServer> {
+        unimplemented!()
     }
 }
 
