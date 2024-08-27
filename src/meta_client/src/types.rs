@@ -596,3 +596,24 @@ impl TryFrom<meta_service_pb::GetNodesResponse> for GetNodesResponse {
         })
     }
 }
+
+#[derive(Debug, Clone, Default)]
+pub struct FetchCompactionNodeRequest {}
+
+pub struct FetchCompactionNodeResponse {
+    pub endpoint: String,
+}
+
+impl From<FetchCompactionNodeRequest> for meta_service_pb::FetchCompactionNodeRequest {
+    fn from(_: FetchCompactionNodeRequest) -> Self {
+        meta_service_pb::FetchCompactionNodeRequest::default()
+    }
+}
+
+impl From<meta_service_pb::FetchCompactionNodeResponse> for FetchCompactionNodeResponse {
+    fn from(value: meta_service_pb::FetchCompactionNodeResponse) -> Self {
+        Self {
+            endpoint: value.endpoint,
+        }
+    }
+}
