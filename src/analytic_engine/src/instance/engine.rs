@@ -299,6 +299,7 @@ impl From<Error> for table_engine::engine::Error {
             | Error::DoManifestSnapshot { .. }
             | Error::OpenManifest { .. }
             | Error::TableNotExist { .. }
+            | Error::MetaClientNotExist { .. }
             | Error::OpenTablesOfShard { .. }
             | Error::ReplayWalNoCause { .. }
             | Error::PurgeWal { .. }
