@@ -303,7 +303,6 @@ impl From<Error> for table_engine::engine::Error {
             | Error::OpenTablesOfShard { .. }
             | Error::ReplayWalNoCause { .. }
             | Error::PurgeWal { .. }
-            | Error::MetaClientNotExist { .. }
             | Error::ReplayWalWithCause { .. }
             | Error::InvalidTableOptions { .. } => Self::Unexpected {
                 source: Box::new(err),
